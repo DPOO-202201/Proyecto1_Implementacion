@@ -9,10 +9,11 @@ public class Participante
 	private boolean isDuenio;
 	private ArrayList<Actividad> actividadesRealizadas;
 	
-	public Participante(String nombre, String correo) 
+	public Participante(String nombre, String correo, boolean isDuenio) 
 	{
 		this.nombre = nombre;
 		this.correo = correo;
 		this.isDuenio = isDuenio;
+		this.actividadesRealizadas = new ArrayList<Actividad>();
 	}
 }

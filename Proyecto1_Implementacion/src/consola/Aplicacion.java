@@ -2,7 +2,9 @@ package consola;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+import model.Participante;
 import procesamiento.Plataforma;
 
 public class Aplicacion
@@ -22,21 +24,62 @@ public class Aplicacion
 		String rutaUsuarios = System.getProperty("user.dir") + "\\data\\usuarios";
 
 		boolean continuar = true;
+		boolean seleccion = false;
+		String nombreProyecto = "";
+		/*
+		 * Mientras que el usuario no haya salido de la aplicacion
+		 */
 		while (continuar)
 		{
 			try
 			{
-				mostrarMenu();
-				int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
-				if (opcion_seleccionada == 1)
-					ejecutarRegistrarParticipante();
-				else if (opcion_seleccionada == 2)
-					ejecutarCrearProyecto();
-				else if (opcion_seleccionada == 0)
+				/*
+				 * Si el usuario ya selecciono un proyecto, le ofrecera opciones para trabajar con este
+				 * 
+				 * El usuario puede volver al menu de seleccion de proyectos
+				 */
+				if (seleccion)
 				{
-					System.out.println("\nSaliendo de la aplicación...\n");
-					continuar = false;
+					mostrarMenuProyecto();
+					int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
+					if (opcion_seleccionada == 1)
+						nombreProyecto = ejecutarCrearProyecto();
+					else if (opcion_seleccionada == 2)
+						ejecutarCargarProyecto();
+					else if (opcion_seleccionada == 0)
+					{
+						System.out.println("\n"+"Saliendo del proyecto..."+"\n");
+						seleccion = false;	
+					}
+					
 				}
+				/*
+				 * Si no ha seleccionado un proyecto, le pedira que cargue uno o que cree uno
+				 * 
+				 * El usuario puede salir de la aplicacion desde aca
+				 */
+				else
+				{
+					mostrarMenuApp();
+					int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
+					if (opcion_seleccionada == 1) 
+					{
+						ejecutarCrearProyecto();
+						seleccion = true;
+					}
+					else if (opcion_seleccionada == 2)
+					{
+						ejecutarCargarProyecto();
+						seleccion = true;
+					}
+					else if (opcion_seleccionada == 0)
+					{
+						System.out.println("\n"+"Saliendo de la aplicacion..."+"\n");
+						continuar = false;
+					}
+				}
+				
+				
 			}
 			catch (NumberFormatException e)
 			{
@@ -49,11 +92,19 @@ public class Aplicacion
 	 * Muestra al usuario el menú con las opciones para que escoja la siguiente
 	 * acción que quiere ejecutar.
 	 */
-	public void mostrarMenu()
+	public void mostrarMenuProyecto()
 	{
 		System.out.println("\nOpciones de la aplicacion:\n");
 		System.out.println("1. Registrar nuevo participante");
 		System.out.println("2. Crear un nuevo proyecto");
+		System.out.println("0. Guardar y salir del proyecto");
+	}
+	
+	public void mostrarMenuApp() 
+	{
+		System.out.println("\n"+" --- Seleccion de proyecto --- "+"\n");
+		System.out.println("1. Crear un nuevo proyecto");
+		System.out.println("2. Cargar un proyecto");
 		System.out.println("0. Salir");
 	}
 	
@@ -61,20 +112,43 @@ public class Aplicacion
 	/**
 	 * Crea un nuevo usuario
 	 */
-	private void ejecutarRegistrarParticipante()
+	private void ejecutarCrearParticipante(boolean isDuenio)
 	{
-		System.out.println("\n");
-		//Plataforma.registrarParticipante();
+		System.out.println("\n"+"--- Registrar Participante ---"+"\n");
+		System.out.println("\n"+"Debe digitar el nombre y el correo del participante que quiere agregar."+"\n");
+		String tempNombre = input("\nNombre del participante");
+		String tempCorreo = input("\nCorreo del participante");
+		//Plataforma.crearParticipante(tempNombre,tempCorreo,isDuenio);
 	}
 	
 	
 	/**
 	 * Crea un nuevo proyecto
 	 */
-	private void ejecutarCrearProyecto()
+	private String ejecutarCrearProyecto()
 	{
-		System.out.println("\n" + "Crear nuevo proyecto" + "\n");
-		//Plataforma.crearProyecto();
+		System.out.println("\n"+"--- Crear Proyecto ---"+"\n");
+		System.out.println("\n"+"Debe digitar el nombrem la descripcion y la fecha inicial y el creador del proyecto."+"\n");
+		String tempNombreProyecto = input("\n"+"Nombre del proyecto");
+		String tempDescripcion= input("\n"+"Descripcion");
+		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
+		String tempFechaFinal = input("\n"+"Fecha final en formato DD-MM-AAAA (Si se desconoce, dejar en blanco)");
+		int tempID = 0;
+		//Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
+		System.out.println("\n"+"A continuacion debe digitar los datos del creador del proyecto");
+		ejecutarCrearParticipante(true);
+		return tempNombreProyecto;
+	}
+	
+	/*
+	 * Carga un proyecto a partir de un archivo .csv
+	 */
+	private void ejecutarCargarProyecto()
+	{
+		System.out.println("\n"+"--- Cargar Proyecto ---"+"\n");
+		System.out.println("\n"+"Debe digitar el nombre del proyecto (NO incluya .csv al final)."+"\n");
+		String tempNombre = input("\n"+"Nombre del proyecto: ");
+		Plataforma.cargarProyecto(tempNombre);
 	}
 
 	/**
