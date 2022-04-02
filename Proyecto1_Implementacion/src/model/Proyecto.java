@@ -19,6 +19,8 @@ public class Proyecto
 		this.fechaInicial = fechaInicial;
 		this.fechaFinal = fechaFinal;
 		this.id = id;
+		tiposActividades = new ArrayList<String>();
+		participantes = new ArrayList<Participante>();
 	}
 	
 }
