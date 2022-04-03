@@ -11,11 +11,26 @@ public class Actividad
 	private int tiempoRealizacion;
 	private boolean isTiempoReal;
 	private Participante autor;
+	private String iD;
 	
 	public Actividad(String titulo, String descripcion, String tipo, String fecha, 
 			String horaInicial, String horaFinal, int tiempoRealizacion, boolean isTiempoReal, 
-			Participante autor)
+			Participante autor, String iD)
 	{
-		
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.tipo = tipo;
+		this.fecha = fecha;
+		this.horaInicial = horaInicial;
+		this.horaFinal = horaFinal;
+		this.tiempoRealizacion = tiempoRealizacion;
+		this.isTiempoReal = isTiempoReal;
+		this.autor = autor;
+		this.iD = iD;
 	}
+
+	public Participante getAutor() {
+		return this.autor;
+	}
+
 }

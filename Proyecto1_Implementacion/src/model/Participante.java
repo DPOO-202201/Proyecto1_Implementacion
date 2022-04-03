@@ -16,4 +16,17 @@ public class Participante
 		this.isDuenio = isDuenio;
 		this.actividadesRealizadas = new ArrayList<Actividad>();
 	}
+
+	public String getNombre()
+		{
+			return this.nombre;
+		}
+
+	public ArrayList<Actividad> getActividades()
+		{
+			return this.actividadesRealizadas;
+		}
+
+
+		
 }

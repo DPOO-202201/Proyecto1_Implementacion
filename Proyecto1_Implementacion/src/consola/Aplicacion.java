@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import model.Participante;
+import model.Proyecto;
 import procesamiento.Plataforma;
 
 public class Aplicacion
@@ -43,6 +45,14 @@ public class Aplicacion
 						nombreProyecto = ejecutarCrearProyecto();
 					else if (opcion_seleccionada == 2)
 						ejecutarCargarProyecto();
+					else if (opcion_seleccionada == 3)
+						{
+							ejecutarCargarParticipantes();
+							ejecutarCargarActividades();
+							System.out.println(Proyecto.getParticipantes().get(0).getActividades().get(0).getAutor().getNombre());
+
+							seleccion = true;
+						}
 					else if (opcion_seleccionada == 0)
 					{
 						System.out.println("\n"+"Saliendo del proyecto..."+"\n");
@@ -94,6 +104,7 @@ public class Aplicacion
 		System.out.println("\nOpciones de la aplicacion:\n");
 		System.out.println("1. Registrar nuevo participante");
 		System.out.println("2. Crear un nuevo proyecto");
+		System.out.println("3. Cargar datos del proyecto");
 		System.out.println("0. Guardar y salir del proyecto");
 	}
 	
@@ -102,9 +113,27 @@ public class Aplicacion
 		System.out.println("\n"+" --- Seleccion de proyecto --- "+"\n");
 		System.out.println("1. Crear un nuevo proyecto");
 		System.out.println("2. Cargar un proyecto");
+
 		System.out.println("0. Salir");
 	}
 	
+
+	private void ejecutarCargarActividades(){
+
+		String nombreArchivo = input("\nDigite el nombre del archivo de actividades");
+		String rutaArchivo = "./././data/"+nombreArchivo+".csv";
+
+		Proyecto.cargarActividades(rutaArchivo);
+
+	}
+
+	private void ejecutarCargarParticipantes()
+		{
+			String nombreArchivo = input("\nDigite el nombre del archivo de participantes");
+			String rutaArchivo = "./././data/"+nombreArchivo+".csv";
+	
+			Proyecto.cargarParticipantes(rutaArchivo);
+		}
 
 	/**
 	 * Crea un nuevo usuario
