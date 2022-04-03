@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Proyecto
@@ -21,6 +25,24 @@ public class Proyecto
 		this.id = id;
 		tiposActividades = new ArrayList<String>();
 		participantes = new ArrayList<Participante>();
+	}
+
+	public static void crearArchivoProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id) 
+	{
+		String nombreArchivo = nombre+".csv";
+		File archivo = new File(nombreArchivo);
+		try
+		{
+		     BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+		     
+		     bw.write(nombre+","+descripcion+","+fechaInicial+","+fechaFinal+","+Integer.toString(id));
+
+		     // Hay que cerrar el fichero
+		     bw.close();
+		  } catch (IOException ioe){
+		     ioe.printStackTrace();
+		  }
+			
 	}
 	
 }

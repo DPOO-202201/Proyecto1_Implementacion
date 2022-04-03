@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import model.Participante;
 import procesamiento.Plataforma;
 
 public class Aplicacion
@@ -20,8 +19,6 @@ public class Aplicacion
 		/**
 		 * Define las rutas donde estan almacenados los documentos.
 		 */
-		String rutaProyectos = System.getProperty("user.dir") + "\\data\\proyectos";
-		String rutaUsuarios = System.getProperty("user.dir") + "\\data\\usuarios";
 
 		boolean continuar = true;
 		boolean seleccion = false;
@@ -128,7 +125,7 @@ public class Aplicacion
 	private String ejecutarCrearProyecto()
 	{
 		System.out.println("\n"+"--- Crear Proyecto ---"+"\n");
-		System.out.println("\n"+"Debe digitar el nombrem la descripcion y la fecha inicial y el creador del proyecto."+"\n");
+		System.out.println("\n"+"Debe digitar el nombre, la descripcion y la fecha inicial y el creador del proyecto."+"\n");
 		String tempNombreProyecto = input("\n"+"Nombre del proyecto");
 		String tempDescripcion= input("\n"+"Descripcion");
 		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
@@ -141,12 +138,13 @@ public class Aplicacion
 	}
 	
 	/*
-	 * Carga un proyecto a partir de un archivo .csv
+	 * Carga un proyecto a partir del nombre del proyecto
+	 * Por ahora se indica el nombre y se dirige a la carpeta para cargar los .csv del proyecto, de los participantes y de las actividades.
 	 */
 	private void ejecutarCargarProyecto()
 	{
 		System.out.println("\n"+"--- Cargar Proyecto ---"+"\n");
-		System.out.println("\n"+"Debe digitar el nombre del proyecto (NO incluya .csv al final)."+"\n");
+		System.out.println("\n"+"Debe digitar el nombre del proyecto."+"\n");
 		String tempNombre = input("\n"+"Nombre del proyecto: ");
 		Plataforma.cargarProyecto(tempNombre);
 	}

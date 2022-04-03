@@ -1,12 +1,14 @@
 package procesamiento;
 
 import java.util.ArrayList;
-
+import java.io.File;
 import model.Participante;
 import model.Proyecto;
 
 public class Plataforma
 {
+	String rutaArchivos = System.getProperty("user.dir") + "\\data";
+	
 	/*
 	 * Definiendo las listas donde se van a guardar los datos
 	 */
@@ -16,10 +18,10 @@ public class Plataforma
 	/*
 	 * Funcion para crear un proyecto
 	 */
-	public static void crearProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id)
+	public void crearProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id)
 	{
 		Proyecto nuevoProyecto = new Proyecto(nombre, descripcion, fechaInicial, fechaFinal, id);
-		listaProyectos.add(nuevoProyecto);
+		Proyecto.crearArchivoProyecto(nuevoProyecto,rutaArchivos);
 	}
 	
 	/*
@@ -27,7 +29,7 @@ public class Plataforma
 	 */
 	public static void cargarProyecto(String nombre)
 	{
-		
+		String rutaProyectos = System.getProperty("user.dir") + "\\data\\proyectos\\" + nombre;
 	}
 	
 	/*
