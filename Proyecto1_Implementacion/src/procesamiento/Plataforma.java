@@ -18,10 +18,10 @@ public class Plataforma
 	/*
 	 * Funcion para crear un proyecto
 	 */
-	public void crearProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id)
+	public static void crearProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id)
 	{
 		Proyecto nuevoProyecto = new Proyecto(nombre, descripcion, fechaInicial, fechaFinal, id);
-		Proyecto.crearArchivoProyecto(nuevoProyecto,rutaArchivos);
+		nuevoProyecto.crearArchivoProyecto();
 	}
 	
 	/*

@@ -197,7 +197,7 @@ public class Aplicacion
 		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
 		String tempFechaFinal = input("\n"+"Fecha final en formato DD-MM-AAAA (Si se desconoce, dejar en blanco)");
 		int tempID = 0;
-		//Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
+		Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
 		System.out.println("\n"+"A continuacion debe digitar los datos del creador del proyecto");
 		ejecutarCrearParticipante(true);
 		return tempNombreProyecto;

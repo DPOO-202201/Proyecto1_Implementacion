@@ -38,31 +38,52 @@ public class Proyecto
 	public String getNombre(){
 		return nombre;
 	}
+	
+	public String getDescripcion(){
+		return descripcion;
+	}
 
+	public String getFechaInicial(){
+		return fechaInicial;
+	}
+	
+	public String getFechaFinal(){
+		return fechaFinal;
+	}
+	
 	public int getId(){
 		return id;
 	}
 
-
-
-
-
-	public static void crearArchivoProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id) 
+	public void crearArchivoProyecto() 
 	{
-		String nombreArchivo = nombre+".csv";
-		File archivo = new File(nombreArchivo);
-		try
-		{
-		     BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
-		     
-		     bw.write(nombre+","+descripcion+","+fechaInicial+","+fechaFinal+","+Integer.toString(id));
-
-		     // Hay que cerrar el fichero
-		     bw.close();
-		  } catch (IOException ioe){
-		     ioe.printStackTrace();
-		  }
-			
+		String rutaArchivo = "data\\proyectos.csv";
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter(rutaArchivo, true);
+			fileWriter.append("\n");
+			fileWriter.append(getNombre());
+			fileWriter.append(",");
+			fileWriter.append(getDescripcion());
+			fileWriter.append(",");
+			fileWriter.append(getFechaInicial());
+			fileWriter.append(",");
+			fileWriter.append(getFechaFinal());
+			fileWriter.append(",");
+			fileWriter.append(Integer.toString(getId()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fileWriter.flush();
+				fileWriter.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 	}
 
 	public static void cargarParticipantes(String rutaArchivo)
@@ -154,8 +175,5 @@ public class Proyecto
 				}
 
 	}
-
-    public static void crearArchivoProyecto(Proyecto nuevoProyecto, String rutaArchivos) {
-    }
 
 }
