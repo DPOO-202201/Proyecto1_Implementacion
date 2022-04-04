@@ -115,6 +115,11 @@ public class Aplicacion
 						ejecutarCargarProyecto();
 						seleccion = true;
 					}
+					else if (opcion_seleccionada == 3)
+					{
+						ejecutarInciarActividad();
+						seleccion = true;
+					}
 					else if (opcion_seleccionada == 0)
 					{
 						System.out.println("\n"+"Saliendo de la aplicacion..."+"\n");
@@ -139,6 +144,7 @@ public class Aplicacion
 	{
 		System.out.println("\nOpciones de la aplicacion:\n");
 		System.out.println("1. Registrar nuevo participante");
+		System.out.println("3. Iniciar una nueva actividad");
 		System.out.println("0. Guardar y salir del proyecto");
 	}
 	
@@ -150,7 +156,12 @@ public class Aplicacion
 
 		System.out.println("0. Salir");
 	}
-	
+
+	private void ejecutarInciarActividad()
+		{
+			Proyecto.iniciarActividad();
+		}
+
 	private void ejecutarCargarProyectos()
 		{
 			String ruta = "./././data/proyectos.csv";
@@ -197,7 +208,7 @@ public class Aplicacion
 		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
 		String tempFechaFinal = input("\n"+"Fecha final en formato DD-MM-AAAA (Si se desconoce, dejar en blanco)");
 		int tempID = 0;
-		//Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
+		Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
 		System.out.println("\n"+"A continuacion debe digitar los datos del creador del proyecto");
 		ejecutarCrearParticipante(true);
 		return tempNombreProyecto;
@@ -250,7 +261,7 @@ public class Aplicacion
 	 * @param mensaje El mensaje que se le mostrará al usuario
 	 * @return La cadena de caracteres que el usuario escriba como respuesta.
 	 */
-	public String input(String mensaje)
+	public static String input(String mensaje)
 	{
 		try
 		{
