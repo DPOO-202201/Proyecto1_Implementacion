@@ -176,4 +176,8 @@ public class Proyecto
 
 	}
 
+	public static void iniciarActividad()
+		{
+			Participante.nuevaActividad();
+		}
 }
