@@ -4,10 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import model.Participante;
 import model.Proyecto;
 import procesamiento.Plataforma;
 
@@ -108,7 +105,6 @@ public class Aplicacion
 					if (opcion_seleccionada == 1) 
 					{
 						ejecutarCrearProyecto();
-						seleccion = true;
 					}
 					else if (opcion_seleccionada == 2)
 					{
@@ -207,7 +203,8 @@ public class Aplicacion
 		String tempDescripcion= input("\n"+"Descripcion");
 		String tempFechaInicial = input("\n"+"Fecha inicial en formato DD-MM-AAAA");
 		String tempFechaFinal = input("\n"+"Fecha final en formato DD-MM-AAAA (Si se desconoce, dejar en blanco)");
-		int tempID = 0;
+		int tempID = 1 + Plataforma.cargarID();
+		System.out.println(tempID);
 		Plataforma.crearProyecto(tempNombreProyecto, tempDescripcion, tempFechaInicial, tempFechaFinal, tempID);
 		System.out.println("\n"+"A continuacion debe digitar los datos del creador del proyecto");
 		ejecutarCrearParticipante(true);

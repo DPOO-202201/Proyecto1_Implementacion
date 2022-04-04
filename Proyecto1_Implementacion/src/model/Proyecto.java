@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class Proyecto
 
 	public void crearArchivoProyecto() 
 	{
-		String rutaArchivo = "data\\proyectos.csv";
+		String rutaArchivo = "./././data/proyectos.csv";
 		FileWriter fileWriter = null;
 		try {
 			fileWriter = new FileWriter(rutaArchivo, true);
