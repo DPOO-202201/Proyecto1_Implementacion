@@ -29,7 +29,7 @@ public class Aplicacion
 					
 					lector.readLine();
 	
-					while ((linea = lector.readLine()) != null)
+					while ((linea = lector.readLine()) != (null))
 						{
 							partes = linea.split(";");
 
@@ -181,7 +181,7 @@ public class Aplicacion
 		System.out.println("\n"+"Debe digitar el nombre y el correo del participante que quiere agregar."+"\n");
 		String tempNombre = input("\nNombre del participante");
 		String tempCorreo = input("\nCorreo del participante");
-		//Plataforma.crearParticipante(tempNombre,tempCorreo,isDuenio);
+		Plataforma.crearParticipante(tempNombre,tempCorreo,isDuenio);
 	}
 	
 	

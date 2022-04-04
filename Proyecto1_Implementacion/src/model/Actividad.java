@@ -32,5 +32,13 @@ public class Actividad
 	public Participante getAutor() {
 		return this.autor;
 	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+	
+	public int getTiempoRelizacion() {
+		return tiempoRealizacion;
+	}
 
 }
