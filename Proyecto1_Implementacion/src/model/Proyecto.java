@@ -35,6 +35,17 @@ public class Proyecto
 		return participantes;
 	}
 
+	public String getNombre(){
+		return nombre;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+
+
+
 
 	public static void crearArchivoProyecto(String nombre, String descripcion, String fechaInicial, String fechaFinal, int id) 
 	{
