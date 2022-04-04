@@ -1,8 +1,11 @@
 package consola;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import model.Participante;
 import model.Proyecto;
@@ -10,6 +13,40 @@ import procesamiento.Plataforma;
 
 public class Aplicacion
 {
+
+	public int iDProyecto = 0;
+	private ArrayList<Proyecto> proyectos = new ArrayList<Proyecto>();
+
+	public void cargarProyectos(String rutaArchivo)
+		{
+			BufferedReader lector;
+			String linea;
+			String partes[];
+	
+			try
+				{
+					lector = new BufferedReader(new FileReader(rutaArchivo));
+					
+					lector.readLine();
+	
+					while ((linea = lector.readLine()) != null)
+						{
+							partes = linea.split(";");
+
+							Proyecto proyecto = new Proyecto(partes[0], partes[1], partes[2], partes[3], Integer.parseInt(partes[4]));
+							proyectos.add(proyecto);
+						}
+						
+						lector.close();
+						linea = null;
+						partes = null;
+	
+				} catch (Exception e)
+					{
+						JOptionPane.showMessageDialog(null, e);
+					}
+		}
+
 	/**
 	 * Ejecuta la aplicación: le muestra el menú al usuario y la pide que ingrese
 	 * una opción, y ejecuta la opción seleccionada por el usuario. Este proceso se
@@ -24,7 +61,6 @@ public class Aplicacion
 
 		boolean continuar = true;
 		boolean seleccion = false;
-		String nombreProyecto = "";
 		/*
 		 * Mientras que el usuario no haya salido de la aplicacion
 		 */
@@ -42,13 +78,13 @@ public class Aplicacion
 					mostrarMenuProyecto();
 					int opcion_seleccionada = Integer.parseInt(input("\nPor favor seleccione una opcion"));
 					if (opcion_seleccionada == 1)
-						nombreProyecto = ejecutarCrearProyecto();
+						ejecutarCrearProyecto();
 					else if (opcion_seleccionada == 2)
 						ejecutarCargarProyecto();
 					else if (opcion_seleccionada == 3)
 						{
-							ejecutarCargarParticipantes();
-							ejecutarCargarActividades();
+							ejecutarCargarParticipantes(iDProyecto);
+							ejecutarCargarActividades(iDProyecto);
 							System.out.println(Proyecto.getParticipantes().get(0).getActividades().get(0).getAutor().getNombre());
 
 							seleccion = true;
@@ -103,8 +139,6 @@ public class Aplicacion
 	{
 		System.out.println("\nOpciones de la aplicacion:\n");
 		System.out.println("1. Registrar nuevo participante");
-		System.out.println("2. Crear un nuevo proyecto");
-		System.out.println("3. Cargar datos del proyecto");
 		System.out.println("0. Guardar y salir del proyecto");
 	}
 	
@@ -117,20 +151,23 @@ public class Aplicacion
 		System.out.println("0. Salir");
 	}
 	
+	private void ejecutarCargarProyectos()
+		{
+			String ruta = "./././data/proyectos.csv";
+			cargarProyectos(ruta);
+		}
 
-	private void ejecutarCargarActividades(){
+	private void ejecutarCargarActividades(int iDProyecto){
 
-		String nombreArchivo = input("\nDigite el nombre del archivo de actividades");
-		String rutaArchivo = "./././data/"+nombreArchivo+".csv";
+		String rutaArchivo = "./././data/proyecto "+iDProyecto+"/actividades.csv";
 
 		Proyecto.cargarActividades(rutaArchivo);
 
 	}
 
-	private void ejecutarCargarParticipantes()
+	private void ejecutarCargarParticipantes(int iDProyecto)
 		{
-			String nombreArchivo = input("\nDigite el nombre del archivo de participantes");
-			String rutaArchivo = "./././data/"+nombreArchivo+".csv";
+			String rutaArchivo = "./././data/proyecto "+iDProyecto+"/participantes.csv";
 	
 			Proyecto.cargarParticipantes(rutaArchivo);
 		}
@@ -171,12 +208,36 @@ public class Aplicacion
 	 * Por ahora se indica el nombre y se dirige a la carpeta para cargar los .csv del proyecto, de los participantes y de las actividades.
 	 */
 	private void ejecutarCargarProyecto()
-	{
-		System.out.println("\n"+"--- Cargar Proyecto ---"+"\n");
-		System.out.println("\n"+"Debe digitar el nombre del proyecto."+"\n");
-		String tempNombre = input("\n"+"Nombre del proyecto: ");
-		Plataforma.cargarProyecto(tempNombre);
-	}
+		{
+
+			System.out.println("\n"+"--- Cargar Proyecto ---"+"\n");
+			String nombreProyecto = input("\n"+"Inserte el nombre del proyecto");
+
+			for(Proyecto proyecto : proyectos)
+				{
+					System.out.println("-----------");
+
+					if (proyecto.getNombre().equals(nombreProyecto))
+						{
+							
+							iDProyecto = proyecto.getId();
+
+						}
+
+				}
+			
+			if (iDProyecto != 0)
+				{
+					ejecutarCargarParticipantes(iDProyecto);
+					ejecutarCargarActividades(iDProyecto);
+
+				}
+			else
+				{
+					System.out.println("\nEl proyecto no se ha encontrado.");
+				}
+
+		}
 
 	/**
 	 * Agrega un elemento a un pedido
@@ -215,6 +276,7 @@ public class Aplicacion
 	public static void main(String[] args)
 	{
 		Aplicacion consola = new Aplicacion();
+		consola.ejecutarCargarProyectos();
 		consola.ejecutarAplicacion();
 	}
 
